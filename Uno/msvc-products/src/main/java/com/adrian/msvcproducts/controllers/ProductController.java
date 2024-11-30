@@ -14,7 +14,7 @@ import com.adrian.msvcproducts.services.ProductService;
 
 
 @RestController
-@RequestMapping("/api/products")
+//@RequestMapping("/api/products")
 public class ProductController {
 
     final private ProductService productService;
