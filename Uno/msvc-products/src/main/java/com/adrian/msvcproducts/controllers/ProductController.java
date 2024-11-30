@@ -36,9 +36,7 @@ public class ProductController {
         if(productOpt.isPresent()){
             return ResponseEntity.ok(productOpt.orElseThrow());
         }
-        return ResponseEntity.notFound().build();
-
-        
+        return ResponseEntity.notFound().build();     
     }
     
 
