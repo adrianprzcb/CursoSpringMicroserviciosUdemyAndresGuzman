@@ -16,6 +16,6 @@ public interface ProductOpenFeignClient {
     List<Product> findAll();
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> details(@PathVariable Long id);
+    Product details(@PathVariable Long id);
 
 }
