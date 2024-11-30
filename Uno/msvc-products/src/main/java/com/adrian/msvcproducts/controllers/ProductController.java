@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.adrian.msvcproducts.entities.Product;
 import com.adrian.msvcproducts.services.ProductService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -25,8 +24,8 @@ public class ProductController {
 
 
     @GetMapping
-    public List<Product> list() {
-        return this.productService.findAll();
+    public ResponseEntity<List<Product>> list() {
+        return ResponseEntity.ok(this.productService.findAll());
     }
 
     @GetMapping("/{id}")
