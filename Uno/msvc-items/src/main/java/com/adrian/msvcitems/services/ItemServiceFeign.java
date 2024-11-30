@@ -3,14 +3,17 @@ package com.adrian.msvcitems.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.adrian.msvcitems.clients.ProductFeignClient;
 import com.adrian.msvcitems.models.Item;
 
 @Service
 public class ItemServiceFeign implements ItemService{
 
-    private ProductOpen
+    @Autowired
+    private ProductFeignClient productFeignClient;
 
     @Override
     public List<Item> findAll() {
