@@ -1,4 +1,4 @@
-package com.adrian.msvc_products;
+package com.adrian.msvcproducts;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
