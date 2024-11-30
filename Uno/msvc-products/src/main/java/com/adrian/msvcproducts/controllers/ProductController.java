@@ -1,7 +1,9 @@
 package com.adrian.msvcproducts.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,8 +30,15 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product details(@PathVariable Long id) {
-        Optional<Product> productOpt = 
+    public ResponseEntity<Product> details(@PathVariable Long id) {
+        Optional<Product> productOpt = productService.findById(id);
+
+        if(productOpt.isPresent()){
+            return ResponseEntity.ok(productOpt.orElseThrow());
+        }
+        return ResponseEntity.notFound().build();
+
+        
     }
     
 
