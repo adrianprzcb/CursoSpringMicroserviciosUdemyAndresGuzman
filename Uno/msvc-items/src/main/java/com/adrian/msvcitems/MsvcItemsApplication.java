@@ -1,4 +1,4 @@
-package com.adrian.msvcitems.msvc_items;
+package com.adrian.msvcitems;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
