@@ -14,8 +14,10 @@ import com.adrian.msvcproducts.services.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService{
 
-    @Autowired
-    private ProductRepository repository;
+ /** 
+  * @Autowired
+   private ProductRepository repository;
+   */  
 
     @Override
     @Transactional(readOnly = true)
@@ -26,8 +28,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     @Transactional(readOnly = true)
     public Optional<Product> findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return repository.findById(id);
     }
 
 }
