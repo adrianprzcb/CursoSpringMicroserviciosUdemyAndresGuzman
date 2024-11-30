@@ -13,14 +13,10 @@ public class Item {
     }
 
     
-
-
     public Item(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
     }
-
-
 
 
     public void setProduct(Product product) {
@@ -37,8 +33,6 @@ public class Item {
     public Double getTotal(){
         return product.getPrice() * quantity;
     }
-
-
-    
+ 
 
 }
