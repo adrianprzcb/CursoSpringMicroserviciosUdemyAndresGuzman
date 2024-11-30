@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.adrian.msvcitems.models.Product;
 
 @FeignClient(url = "localhost:8080")
-public interface ProductOpenFeignClient {
+public interface ProductFeignClient {
 
     @GetMapping()
     List<Product> findAll();

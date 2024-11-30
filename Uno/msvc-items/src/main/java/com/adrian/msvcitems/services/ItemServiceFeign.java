@@ -10,6 +10,8 @@ import com.adrian.msvcitems.models.Item;
 @Service
 public class ItemServiceFeign implements ItemService{
 
+    private ProductOpen
+
     @Override
     public List<Item> findAll() {
         // TODO Auto-generated method stub
