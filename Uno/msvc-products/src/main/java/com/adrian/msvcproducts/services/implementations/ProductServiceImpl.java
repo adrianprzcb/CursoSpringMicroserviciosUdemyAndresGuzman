@@ -19,16 +19,23 @@ public class ProductServiceImpl implements ProductService{
    private ProductRepository repository;
    */  
 
+   final private ProductRepository productRepository;
+
+
+   public ProductServiceImpl(ProductRepository productRepository){
+    this.productRepository = productRepository;
+   }
+
     @Override
     @Transactional(readOnly = true)
     public List<Product> findAll() {
-       return (List<Product>) repository.findAll();
+       return (List<Product>) productRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Product> findById(Long id) {
-        return repository.findById(id);
+        return productRepository.findById(id);
     }
 
 }
