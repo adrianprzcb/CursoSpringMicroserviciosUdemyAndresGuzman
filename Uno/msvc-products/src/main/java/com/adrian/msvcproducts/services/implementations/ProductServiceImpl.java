@@ -13,14 +13,14 @@ import com.adrian.msvcproducts.services.ProductService;
 public class ProductServiceImpl implements ProductService{
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Product> findAll() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Product> findById(Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findById'");
