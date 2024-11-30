@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.adrian.msvcproducts.entities.Product;
@@ -13,6 +14,7 @@ import com.adrian.msvcproducts.services.ProductService;
 
 
 @RestController
+@RequestMapping("/api/products")
 public class ProductController {
 
     final private ProductService productService;
