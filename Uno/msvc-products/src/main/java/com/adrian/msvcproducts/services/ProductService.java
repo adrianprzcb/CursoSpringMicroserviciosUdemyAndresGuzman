@@ -11,7 +11,7 @@ import com.adrian.msvcproducts.entities.Product;
 public interface ProductService {
 
     List<Product> findAll();
-    Optional<Product> findById();
+    Optional<Product> findById(Long id);
 
 
 }
