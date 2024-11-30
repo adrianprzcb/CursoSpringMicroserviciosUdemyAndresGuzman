@@ -1,8 +1,16 @@
 package com.adrian.msvcitems.clients;
 
-import org.springframework.cloud.openfeign.FeignClient;
+import java.util.List;
 
-@FeignClient
-public class ProductOpenFeignClient {
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.adrian.msvcitems.models.Product;
+
+@FeignClient(url = "localhost:8080")
+public interface ProductOpenFeignClient {
+
+    @GetMapping()
+    List<Product> findAll();
 
 }
