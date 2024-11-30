@@ -7,4 +7,8 @@ import jakarta.persistence.Table;
 @Table(name = "items")
 public class Item {
 
+    private Product product;
+    private int quantity;
+
+
 }
