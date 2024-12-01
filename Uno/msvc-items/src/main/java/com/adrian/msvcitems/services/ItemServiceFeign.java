@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.adrian.msvcitems.clients.ProductFeignClient;
 import com.adrian.msvcitems.models.Item;
+import com.adrian.msvcitems.models.Product;
 
 @Service
 public class ItemServiceFeign implements ItemService{
@@ -27,7 +28,14 @@ public class ItemServiceFeign implements ItemService{
 
     @Override
     public Optional<Item> findById(Long id) {
-        return Optional.of(new Item(productFeignClient.details(id), new Random().nextInt(10)+1));
+
+        Product product = productFeignClient.details(id);
+
+        if(product == null){
+            return Optional.empty();
+        }
+        
+        return Optional.of(new Item(product, new Random().nextInt(10)+1));
     }
     
 }
