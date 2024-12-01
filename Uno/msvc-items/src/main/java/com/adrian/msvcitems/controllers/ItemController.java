@@ -35,6 +35,7 @@ public class ItemController {
         if(itemOptional.isPresent()){
             return ResponseEntity.ok(itemOptional.get());
         }
+        return ResponseEntity.notFound().build();
     }
 
     
