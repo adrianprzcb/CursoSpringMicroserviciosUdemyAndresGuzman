@@ -71,6 +71,16 @@ public class Product {
         this.createAt = createAt;
     }
 
+
+    public int getPort() {
+        return port;
+    }
+
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
     
 
 
