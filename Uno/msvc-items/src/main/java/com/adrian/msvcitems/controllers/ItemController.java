@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.adrian.msvcitems.models.Item;
@@ -29,8 +30,11 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    public Item details(@PathVariable Long id){
+    public ResponseEntity<Item> details(@PathVariable Long id){
         Optional<Item> itemOptional = itemService.findById(id);
+        if(itemOptional.isPresent()){
+            return ResponseEntity.ok(itemOptional.get());
+        }
     }
 
     
