@@ -33,7 +33,9 @@ public class ProductServiceImpl implements ProductService{
     @Transactional(readOnly = true)
     public List<Product> findAll() {
        return ((List<Product>) productRepository.findAll()).stream().map(product ->
-       return product);
+       product.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
+       return product;
+       );
     }
 
     @Override
