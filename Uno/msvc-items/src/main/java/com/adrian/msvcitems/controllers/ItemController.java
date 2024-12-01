@@ -8,7 +8,13 @@ import com.adrian.msvcitems.services.ItemService;
 @RestController
 public class ItemController {
 
-    @Autowired
     private final ItemService itemService;
+
+    public ItemController(ItemService itemService){
+        this.itemService = itemService;
+    }
+
+
+    
 
 }
