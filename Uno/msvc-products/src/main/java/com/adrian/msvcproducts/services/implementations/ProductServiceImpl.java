@@ -42,7 +42,12 @@ public class ProductServiceImpl implements ProductService{
     @Override
     @Transactional(readOnly = true)
     public Optional<Product> findById(Long id) {
-        return productRepository.findById(id);
+        
+
+        return productRepository.findById(id).map(product -> {
+            product.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
+            return product;
+        });
     }
 
 }
