@@ -27,7 +27,7 @@ public class ItemServiceFeign implements ItemService{
 
     @Override
     public Optional<Item> findById(Long id) {
-        return Optional.ofNullable(new Item(productFeignClient.details(id), new Random().nextInt(10)+1));
+        return Optional.of(new Item(productFeignClient.details(id), new Random().nextInt(10)+1));
     }
     
 }
