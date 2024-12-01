@@ -2,6 +2,8 @@ package com.adrian.msvcproducts.services.implementations;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -32,10 +34,10 @@ public class ProductServiceImpl implements ProductService{
     @Override
     @Transactional(readOnly = true)
     public List<Product> findAll() {
-       return ((List<Product>) productRepository.findAll()).stream().map(product ->
+       return ((List<Product>) productRepository.findAll()).stream().map(product ->{
        product.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
        return product;
-       );
+    }).collect(Collectors.toList());
     }
 
     @Override
