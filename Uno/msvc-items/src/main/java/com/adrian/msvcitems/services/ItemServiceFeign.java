@@ -2,6 +2,8 @@ package com.adrian.msvcitems.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +19,10 @@ public class ItemServiceFeign implements ItemService{
 
     @Override
     public List<Item> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return productFeignClient.findAll().stream().map(product -> {
+            Random random = new Random();
+            return new Item(product, random.nextInt(10)+1);
+        }).collect(Collectors.toList());
     }
 
     @Override
