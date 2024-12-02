@@ -21,7 +21,7 @@ public class ProductServiceWebClient implements ItemService{
 
     @Override
     public List<Item> findAll() {
-        return this.client.build().get().uri(null);
+        return this.client.build().get().uri("msvc-products");
     }
 
     @Override
