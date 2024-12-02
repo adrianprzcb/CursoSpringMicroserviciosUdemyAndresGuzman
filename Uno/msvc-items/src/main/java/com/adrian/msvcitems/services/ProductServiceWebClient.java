@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.Builder;
 import com.adrian.msvcitems.models.Item;
-import com.adrian.msvcitems.services.ItemService;
 
 @Service
 public class ProductServiceWebClient implements ItemService{
@@ -22,8 +21,7 @@ public class ProductServiceWebClient implements ItemService{
 
     @Override
     public List<Item> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return this.client.build().get().uri(null);
     }
 
     @Override
