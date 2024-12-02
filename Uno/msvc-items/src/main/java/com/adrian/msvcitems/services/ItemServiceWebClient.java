@@ -15,8 +15,8 @@ import org.springframework.web.reactive.function.client.WebClient.Builder;
 import com.adrian.msvcitems.models.Item;
 import com.adrian.msvcitems.models.Product;
 
+//@Primary
 @Service
-@Primary
 public class ItemServiceWebClient implements ItemService{
 
 
