@@ -42,12 +42,18 @@ public class ItemServiceWebClient implements ItemService{
         
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        return Optional.ofNullable(this.client.build().get().uri("http://mscv-products/{id}" , params)
-        .accept(MediaType.APPLICATION_JSON)
-        .retrieve()
-        .bodyToMono(Product.class)
-        .map(product -> new Item(product, new Random().nextInt(10)+1))
-        .block());
+
+        try {
+            return Optional.of(this.client.build().get().uri("http://mscv-products/{id}" , params)
+            .accept(MediaType.APPLICATION_JSON)
+            .retrieve()
+            .bodyToMono(Product.class)
+            .map(product -> new Item(product, new Random().nextInt(10)+1))
+            .block());
+        } catch (Exception e) {
+           return Optional.empty();
+        }
+    
     }
 
 }
