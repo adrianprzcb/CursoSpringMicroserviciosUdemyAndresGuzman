@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
@@ -32,7 +33,7 @@ public class ItemServiceWebClient implements ItemService{
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .bodyToFlux(Product.class)
-        .map(product -> )
+        .map(product -> new Item(product, new Random().nextInt(10)+1))
         .collectList()
         .block();
     }
@@ -45,7 +46,8 @@ public class ItemServiceWebClient implements ItemService{
         return Optional.ofNullable(this.client.build().get().uri("http://mscv-products/{id}" , params)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
-        .bodyToMono(Item.class)
+        .bodyToMono(Product.class)
+        .map(product -> new Item(product, new Random().nextInt(10)+1))
         .block());
     }
 
