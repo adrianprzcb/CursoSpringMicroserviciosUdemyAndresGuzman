@@ -31,6 +31,7 @@ public class ItemController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> details(@PathVariable Long id){
+        
         Optional<Item> itemOptional = itemService.findById(id);
         if(itemOptional.isPresent()){
             return ResponseEntity.ok(itemOptional.get());
