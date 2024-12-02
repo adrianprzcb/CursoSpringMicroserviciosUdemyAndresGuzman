@@ -11,6 +11,6 @@ public class WebClientConfig {
     @Bean
     @LoadBalanced
     WebClient.Builder webClient() {
-        return WebClient.builder().baseUrl("http://msvc-products");
+        return WebClient.builder().baseUrl("");
     }
 }
