@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -13,6 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient.Builder;
 import com.adrian.msvcitems.models.Item;
 
 @Service
+@Primary
 public class ProductServiceWebClient implements ItemService{
 
 
