@@ -15,12 +15,12 @@ import com.adrian.msvcitems.models.Item;
 
 @Service
 @Primary
-public class ProductServiceWebClient implements ItemService{
+public class ItemServiceWebClient implements ItemService{
 
 
     private final WebClient.Builder client;
 
-    public ProductServiceWebClient(Builder client){
+    public ItemServiceWebClient(Builder client){
         this.client = client;
     }
 
