@@ -37,8 +37,11 @@ public class ProductServiceWebClient implements ItemService{
         
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        return this.client.build().get().uri("http://mscv-products/{id}" , params)
-        .retrieve().bo
+        return Optional.ofNullable(this.client.build().get().uri("http://mscv-products/{id}" , params)
+        .accept(MediaType.APPLICATION_JSON)
+        .retrieve()
+        .bodyToMono(Item.class)
+        .block());
     }
 
 }
