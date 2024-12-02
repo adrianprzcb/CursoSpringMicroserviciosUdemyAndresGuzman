@@ -1,7 +1,9 @@
 package com.adrian.msvcitems.services;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.MediaType;
@@ -33,7 +35,10 @@ public class ProductServiceWebClient implements ItemService{
     @Override
     public Optional<Item> findById(Long id) {
         
-        
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        return this.client.build().get().uri("mscv-products")
+        .retrieve().bo
     }
 
 }
