@@ -4,6 +4,7 @@ package com.adrian.msvcitems.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.Builder;
@@ -21,7 +22,12 @@ public class ProductServiceWebClient implements ItemService{
 
     @Override
     public List<Item> findAll() {
-        return this.client.build().get().uri("msvc-products");
+        return this.client.build()
+        .get().uri("msvc-products")
+        .accept(MediaType.APPLICATION_JSON)
+        .retrieve()
+        .bodyToFlux(Item.class).collectList()
+        .block();
     }
 
     @Override
