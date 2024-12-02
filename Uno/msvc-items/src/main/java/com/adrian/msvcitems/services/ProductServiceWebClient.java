@@ -25,7 +25,7 @@ public class ProductServiceWebClient implements ItemService{
     @Override
     public List<Item> findAll() {
         return this.client.build()
-        .get().uri("msvc-products")
+        .get().uri("http://msvc-products")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .bodyToFlux(Item.class).collectList()
