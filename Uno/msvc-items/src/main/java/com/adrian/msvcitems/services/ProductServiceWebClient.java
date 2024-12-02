@@ -32,8 +32,8 @@ public class ProductServiceWebClient implements ItemService{
 
     @Override
     public Optional<Item> findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        
+        
     }
 
 }
