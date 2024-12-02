@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.Builder;
 import com.adrian.msvcitems.models.Item;
+import com.adrian.msvcitems.models.Product;
 
 @Service
 @Primary
@@ -30,7 +31,9 @@ public class ItemServiceWebClient implements ItemService{
         .get().uri("http://msvc-products")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
-        .bodyToFlux(Item.class).collectList()
+        .bodyToFlux(Product.class)
+        .map(product -> )
+        .collectList()
         .block();
     }
 
