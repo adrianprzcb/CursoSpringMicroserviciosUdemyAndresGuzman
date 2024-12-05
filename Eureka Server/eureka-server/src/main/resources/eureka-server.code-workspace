@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../../../../../Uno/msvc-items"
+		},
+		{
+			"path": "../../../../../SpringCloud/msvc-gateway-server"
 		}
 	],
 	"settings": {
