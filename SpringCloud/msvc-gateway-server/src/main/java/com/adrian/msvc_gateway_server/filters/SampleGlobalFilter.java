@@ -1,5 +1,7 @@
 package com.adrian.msvc_gateway_server.filters;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.stereotype.Component;
@@ -10,10 +12,17 @@ import reactor.core.publisher.Mono;
 @Component
 public class SampleGlobalFilter implements GlobalFilter{
 
+    private Logger logger = LoggerFactory.getLogger(SampleGlobalFilter.class)
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filter'");
+        
+        logger.info("Ejecutando filtro antes del request");
+
+        return chain.filter(exchange).then(Mono.fromRunnable(() -> {
+            logger.info("ejecutando filtro POST");
+        }));
+        
     }
 
     
