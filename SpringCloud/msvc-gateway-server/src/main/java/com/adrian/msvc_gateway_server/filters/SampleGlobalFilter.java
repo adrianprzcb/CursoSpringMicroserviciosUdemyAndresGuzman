@@ -23,13 +23,14 @@ public class SampleGlobalFilter implements GlobalFilter, Ordered{
         logger.info("Ejecutando filtro antes del request");
 
 
-        exchange.getRequest().mutate().headers(h -> h.add("token", "headerValue"));
+        exchange.getRequest().mutate().headers(h -> h.add("token", "abcf"));
 
 
 
         return chain.filter(exchange).then(Mono.fromRunnable(() -> {
             logger.info("ejecutando filtro POST");
-            logger.info("token:" + exchange.getRequest().getHeaders().get("token"));
+            String token = exchange.getRequest().getHeaders().get("token").get(0);
+            logger.info("token:" +token);
 
             
 
