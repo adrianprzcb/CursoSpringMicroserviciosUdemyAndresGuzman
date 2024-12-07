@@ -3,6 +3,7 @@ package com.adrian.msvcitems.controllers;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.jar.Attributes.Name;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import com.adrian.msvcitems.models.Item;
 import com.adrian.msvcitems.services.ItemService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -25,8 +28,11 @@ public class ItemController {
 
 
     @GetMapping
-    public List<Item> list() {
+    public List<Item> list(@RequestParam(name="name", required = false) String name, @RequestHeader(name = "token-request", required = false) String token ) {
+        System.out.println(name);
+        System.out.println(token);
        return itemService.findAll();
+  
     }
 
     @GetMapping("/{id}")
