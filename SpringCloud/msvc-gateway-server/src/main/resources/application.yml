@@ -8,6 +8,7 @@ spring:
         - Path=/api/products/**
         - Header=token, 12345
         - Method=GET, POST
+        - Query=color, verde
         filters:
         - StripPrefix=2
         - name: SampleCookie
