@@ -9,6 +9,7 @@ spring:
         - Header=token, 12345
         - Method=GET, POST
         - Query=color, verde
+        - Cookie=color, azul
         filters:
         - StripPrefix=2
         - name: SampleCookie
