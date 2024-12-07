@@ -1,5 +1,7 @@
 package com.adrian.msvc_gateway_server.filters;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -22,17 +24,23 @@ public class SampleGlobalFilter implements GlobalFilter, Ordered{
         
         logger.info("Ejecutando filtro antes del request");
 
-
-        exchange.getRequest().mutate().headers(h -> h.add("token", "abcf"));
-
+       exchange.getRequest().mutate().headers(h -> h.add("token", "abcf"));
+       exchange.getResponse().getHeaders().add("token", "fefe");
 
 
         return chain.filter(exchange).then(Mono.fromRunnable(() -> {
             logger.info("ejecutando filtro POST");
-            String token = exchange.getRequest().getHeaders().get("token").get(0);
-            logger.info("token:" +token);
+            String token = exchange.getRequest().getHeaders().getFirst("token");
 
-            
+            if(token != null){
+                logger.info("token:" +token);
+                exchange.getResponse().getHeaders().add("token", token);
+            }
+
+            Optional.ofNullable(exchange.getRequest().getHeaders().getFirst("token")).ifPresent(value -> {
+                logger.info("token2" , value);
+                exchange.getResponse().getHeaders().add("token2", value);
+            });;
 
             exchange.getResponse().getCookies().add("color", ResponseCookie.from("color", "red").build());
             exchange.getResponse().getHeaders().setContentType(MediaType.TEXT_PLAIN);
