@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.jar.Attributes.Name;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ItemController {
 
     private final ItemService itemService;
+    private final CircuitBreakerFactory circuitBreakerFactory;
 
-    public ItemController(@Qualifier("itemServiceWebClient") ItemService itemService){
+    public ItemController(@Qualifier("itemServiceWebClient") ItemService itemService, CircuitBreakerFactory circuitBreakerFactory){
         this.itemService = itemService;
+        this.circuitBreakerFactory = circuitBreakerFactory;
     }
 
 
@@ -38,7 +41,7 @@ public class ItemController {
     @GetMapping("/{id}")
     public ResponseEntity<?> details(@PathVariable Long id){
         
-        Optional<Item> itemOptional = itemService.findById(id);
+        Optional<Item> itemOptional = circuitBreakerFactory.create("items").run(() -> itemService.findById(id));
         if(itemOptional.isPresent()){
             return ResponseEntity.ok(itemOptional.get());
         }
