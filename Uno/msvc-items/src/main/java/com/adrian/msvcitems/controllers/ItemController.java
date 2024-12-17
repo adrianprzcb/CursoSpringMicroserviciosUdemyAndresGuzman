@@ -1,5 +1,6 @@
 package com.adrian.msvcitems.controllers;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.adrian.msvcitems.models.Item;
+import com.adrian.msvcitems.models.Product;
 import com.adrian.msvcitems.services.ItemService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +43,17 @@ public class ItemController {
     @GetMapping("/{id}")
     public ResponseEntity<?> details(@PathVariable Long id){
         
-        Optional<Item> itemOptional = circuitBreakerFactory.create("items").run(() -> itemService.findById(id));
+        Optional<Item> itemOptional = circuitBreakerFactory.create("items").run(() -> 
+                    itemService.findById(id), 
+                     e -> {
+                        Product product = new Product();
+                        product.setCreateAt(LocalDate.now());
+                        product.setId(1L);
+                        product.setName("CamraRAR");
+                        product.setPrice(500.00);
+                        return Optional.of(new Item( product, 5));
+                     }
+        );
         if(itemOptional.isPresent()){
             return ResponseEntity.ok(itemOptional.get());
         }
