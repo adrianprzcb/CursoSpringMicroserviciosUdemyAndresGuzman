@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.jar.Attributes.Name;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class ItemController {
+
+    private final Logger logger = LoggerFactory.getLogger(ItemController.class);
 
     private final ItemService itemService;
     private final CircuitBreakerFactory circuitBreakerFactory;
@@ -46,6 +50,9 @@ public class ItemController {
         Optional<Item> itemOptional = circuitBreakerFactory.create("items").run(() -> 
                     itemService.findById(id), 
                      e -> {
+
+                        System.out.println(e.getMessage());
+                        logger.error(e.getMessage());
                         Product product = new Product();
                         product.setCreateAt(LocalDate.now());
                         product.setId(1L);
