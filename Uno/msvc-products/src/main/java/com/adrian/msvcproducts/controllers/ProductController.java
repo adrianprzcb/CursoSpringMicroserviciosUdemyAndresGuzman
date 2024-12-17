@@ -2,6 +2,7 @@ package com.adrian.msvcproducts.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,14 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> details(@PathVariable Long id) {
+    public ResponseEntity<?> details(@PathVariable Long id) throws InterruptedException {
+
+        if(id.equals(10L)){
+            throw new IllegalStateException("Producto no encontrado");
+        }
+        if(id.equals(7L)){
+            TimeUnit.SECONDS.sleep(5L);
+        }
         Optional<Product> productOpt = productService.findById(id);
 
         if(productOpt.isPresent()){
