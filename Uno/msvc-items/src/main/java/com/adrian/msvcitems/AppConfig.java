@@ -29,7 +29,7 @@ public class AppConfig {
                 .slowCallDurationThreshold(Duration.ofSeconds(2L))
                 .slowCallRateThreshold(50)
                 .build())
-                .timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(4L)).build())
+                .timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(3L)).build())
                 .build();
         });
     }
