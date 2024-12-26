@@ -15,6 +15,9 @@
 		{
 			"name": "config-server",
 			"path": "../../../../../ConfigServer/config-server"
+		},
+		{
+			"path": "../../../../../../../../../Users/Usuario/Documents/config"
 		}
 	],
 	"settings": {
