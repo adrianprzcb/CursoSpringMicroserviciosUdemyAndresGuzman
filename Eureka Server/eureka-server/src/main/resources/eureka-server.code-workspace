@@ -1,15 +1,19 @@
 {
 	"folders": [
 		{
+			"name": "eureka-server",
 			"path": "../../.."
 		},
 		{
+			"name": "msvc-products",
 			"path": "../../../../../Uno/msvc-products"
 		},
 		{
+			"name": "msvc-items",
 			"path": "../../../../../Uno/msvc-items"
 		},
 		{
+			"name": "msvc-gateway-server",
 			"path": "../../../../../SpringCloud/msvc-gateway-server"
 		},
 		{
@@ -17,6 +21,7 @@
 			"path": "../../../../../ConfigServer/config-server"
 		},
 		{
+			"name": "config",
 			"path": "../../../../../config"
 		}
 	],

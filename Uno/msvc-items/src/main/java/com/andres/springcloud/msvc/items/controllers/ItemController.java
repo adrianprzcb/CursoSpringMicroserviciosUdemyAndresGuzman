@@ -5,26 +5,34 @@ import org.springframework.web.bind.annotation.RestController;
 import com.andres.springcloud.msvc.items.models.Item;
 import com.andres.springcloud.msvc.items.models.Product;
 import com.andres.springcloud.msvc.items.services.ItemService;
+import com.netflix.discovery.converters.Auto;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
+@RefreshScope
 @RestController
 public class ItemController {
 
@@ -33,10 +41,31 @@ public class ItemController {
         private final ItemService service;
         private final CircuitBreakerFactory cBreakerFactory;
 
+        @Value("${configuracion.texto}")
+        private String text;
+
+        @Autowired
+        private Environment env;
+
         public ItemController(@Qualifier("itemServiceWebClient") ItemService service,
                         CircuitBreakerFactory cBreakerFactory) {
                 this.cBreakerFactory = cBreakerFactory;
                 this.service = service;
+        }
+
+        @GetMapping("/fetch-configs")
+        public ResponseEntity<?> fetchConfigs(@Value("${server.port}") String port) {
+                Map<String, String> json = new HashMap<>();
+                json.put("text", text);
+                json.put("port", port);
+                logger.info(port);
+                logger.info(text);
+
+                if (env.getActiveProfiles().length > 0 && env.getActiveProfiles()[0].equals("dev")) {
+                        json.put("autor.nombre", env.getProperty("configuracion.autor.nombre"));
+                        json.put("autor.email", env.getProperty("configuracion.autor.email"));
+                }
+                return ResponseEntity.ok(json);
         }
 
         @GetMapping
