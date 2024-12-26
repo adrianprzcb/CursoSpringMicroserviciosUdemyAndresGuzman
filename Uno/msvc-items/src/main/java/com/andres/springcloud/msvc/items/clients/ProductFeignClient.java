@@ -13,6 +13,7 @@ public interface ProductFeignClient {
 
     @GetMapping
     List<Product> findAll();
+    
 
     @GetMapping("/{id}")
     Product details(@PathVariable Long id);
