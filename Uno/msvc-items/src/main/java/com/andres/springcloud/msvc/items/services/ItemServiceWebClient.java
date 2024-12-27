@@ -55,20 +55,31 @@ public class ItemServiceWebClient implements ItemService {
 
     @Override
     public Product save(Product product) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return client.build()
+        .post()
+        .contentType(MediaType.APPLICATION_JSON)
+        .bodyValue(product)
+        .retrieve()
+        .bodyToMono(Product.class)
+        .block();
     }
 
     @Override
     public Product update(Product product, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        Map<String, Long> params = new HashMap<>();
+        params.put("id", id);
+        return client.build().put().uri("/{id}", params)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .bodyToMono(Product.class)
+                    .block();
     }
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        Map<String, Long> params = new HashMap<>();
+        params.put("id", id);
     }
 
 }
