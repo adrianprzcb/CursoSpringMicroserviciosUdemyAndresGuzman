@@ -17,12 +17,11 @@
 			"path": "../../../../../SpringCloud/msvc-gateway-server"
 		},
 		{
-			"name": "config-server",
-			"path": "../../../../../ConfigServer/config-server"
-		},
-		{
 			"name": "config",
 			"path": "../../../../../config"
+		},
+		{
+			"path": "../../../../../config-server"
 		}
 	],
 	"settings": {
