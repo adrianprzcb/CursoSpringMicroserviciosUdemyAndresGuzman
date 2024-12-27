@@ -80,6 +80,11 @@ public class ItemServiceWebClient implements ItemService {
     public void delete(Long id) {
         Map<String, Long> params = new HashMap<>();
         params.put("id", id);
+
+        client.build().delete().uri("/{id}" , params)
+        .retrieve()
+        .bodyToMono(Void.class)
+        .block();
     }
 
 }
