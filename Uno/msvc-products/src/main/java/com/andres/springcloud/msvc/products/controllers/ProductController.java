@@ -1,5 +1,6 @@
 package com.andres.springcloud.msvc.products.controllers;
 
+import java.lang.annotation.Repeatable;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.andres.springcloud.msvc.products.entities.Product;
 import com.andres.springcloud.msvc.products.services.ProductService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -50,17 +52,38 @@ public class ProductController {
     }
 
 
-    @PostMapping("path")
+    @PostMapping
     public ResponseEntity<Product> create(@RequestBody Product product){
 
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(product));
     }
 
-    @DeleteMapping
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        this.service.deleteById(id);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Product product){
+        Optional<Product> productOptional = service.findById(id);
+        if(productOptional.isPresent()){
+            Product productDb = productOptional.orElseThrow();
+            productDb.setName(product.getName());
+            productDb.setPrice(product.getPrice());
+            productDb.setCreateAt(product.getCreateAt());
 
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.save(productDb));
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
+
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        Optional<Product> productOptional = service.findById(id);
+        if(productOptional.isPresent()){
+            this.service.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.noContent().build();
     }
     
     
