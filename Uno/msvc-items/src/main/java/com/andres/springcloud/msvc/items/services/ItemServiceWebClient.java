@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.Builder;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import com.andres.springcloud.msvc.items.models.Item;
 import com.andres.springcloud.msvc.items.models.Product;
@@ -52,6 +51,24 @@ public class ItemServiceWebClient implements ItemService {
         // } catch (WebClientResponseException e) {
         //     return Optional.empty();
         // }
+    }
+
+    @Override
+    public Product save(Product product) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
+
+    @Override
+    public Product update(Product product, Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @Override
+    public void delete(Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
 }

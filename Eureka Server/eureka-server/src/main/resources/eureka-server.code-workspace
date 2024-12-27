@@ -1,10 +1,6 @@
 {
 	"folders": [
 		{
-			"name": "eureka-server",
-			"path": "../../.."
-		},
-		{
 			"name": "msvc-products",
 			"path": "../../../../../Uno/msvc-products"
 		},
@@ -22,6 +18,9 @@
 		},
 		{
 			"path": "../../../../../config-server"
+		},
+		{
+			"path": "../../.."
 		}
 	],
 	"settings": {
