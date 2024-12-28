@@ -21,6 +21,9 @@
 		},
 		{
 			"path": "../../.."
+		},
+		{
+			"path": "../../../../../commons/libs-mcvc-commons"
 		}
 	],
 	"settings": {
