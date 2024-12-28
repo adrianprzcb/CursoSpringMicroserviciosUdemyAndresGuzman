@@ -1,5 +1,7 @@
 package com.andres.springcloud.msvc.items.models;
 
+import com.andres.libs.msvc.commons.libs_mcvc_commons.entities.Product;
+
 public class Item {
 
     private Product product;

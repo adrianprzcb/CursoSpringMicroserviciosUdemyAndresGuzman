@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.andres.springcloud.msvc.items.models.Item;
-import com.andres.springcloud.msvc.items.models.Product;
+import com.andres.libs.msvc.commons.libs_mcvc_commons.entities.Product;
 
 public interface ItemService {
 

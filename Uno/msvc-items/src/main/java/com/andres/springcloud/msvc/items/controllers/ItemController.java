@@ -3,7 +3,7 @@ package com.andres.springcloud.msvc.items.controllers;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.andres.springcloud.msvc.items.models.Item;
-import com.andres.springcloud.msvc.items.models.Product;
+import com.andres.libs.msvc.commons.libs_mcvc_commons.entities.Product;
 import com.andres.springcloud.msvc.items.services.ItemService;
 import com.netflix.discovery.converters.Auto;
 
