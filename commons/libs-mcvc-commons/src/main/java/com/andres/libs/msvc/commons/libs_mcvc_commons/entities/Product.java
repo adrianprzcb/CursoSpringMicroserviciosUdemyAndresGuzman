@@ -1,4 +1,4 @@
-package com.andres.springcloud.msvc.products.entities;
+package com.andres.libs.msvc.commons.libs_mcvc_commons.entities;
 
 import java.time.LocalDate;
 
