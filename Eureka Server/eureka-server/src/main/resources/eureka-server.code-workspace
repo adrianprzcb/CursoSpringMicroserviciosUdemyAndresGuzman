@@ -24,6 +24,10 @@
 		},
 		{
 			"path": "../../../../../commons/libs-mcvc-commons"
+		},
+		{
+			"name": "msvc-users",
+			"path": "../../../../../SpringCloud/Users/msvc-users"
 		}
 	],
 	"settings": {
