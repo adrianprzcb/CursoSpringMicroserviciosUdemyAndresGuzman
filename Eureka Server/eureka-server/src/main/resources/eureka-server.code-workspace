@@ -20,6 +20,12 @@
 		},
 		{
 			"path": "../../../../../commons/libs-mcvc-commons"
+		},
+		{
+			"path": "../../../../../SpringCloud/msvc-gateway-server"
+		},
+		{
+			"path": "../../../../../SpringCloud/msvc-users"
 		}
 	],
 	"settings": {
