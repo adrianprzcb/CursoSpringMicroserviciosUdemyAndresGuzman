@@ -9,10 +9,6 @@
 			"path": "../../../../../Uno/msvc-items"
 		},
 		{
-			"name": "msvc-gateway-server",
-			"path": "../../../../../SpringCloud/msvc-gateway-server"
-		},
-		{
 			"name": "config",
 			"path": "../../../../../config"
 		},
@@ -24,10 +20,6 @@
 		},
 		{
 			"path": "../../../../../commons/libs-mcvc-commons"
-		},
-		{
-			"name": "msvc-users",
-			"path": "../../../../../SpringCloud/Users/msvc-users"
 		}
 	],
 	"settings": {
