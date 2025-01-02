@@ -8,6 +8,8 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 
 import io.netty.handler.codec.http.HttpObject;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 public class SecurityConfig {
 
@@ -19,11 +21,13 @@ public class SecurityConfig {
             .pathMatchers(HttpMethod.GET , "api/items" , "/api/products" , "api/users").permitAll()
             .pathMatchers(HttpMethod.GET , "api/items/{id}" , "api/products/{id}" , "api/users/{id}").hasAnyRole("ADMIN", "USER")
             .pathMatchers("/api/products/**", "/api/items/**", "/api/users/**").hasRole("ADMIN")
-            .pathMatchers(HttpMethod.POST,"/api/products", "/api/items", "/api/users").hasRole("ADMIN")
-            .pathMatchers(HttpMethod.PUT,"/api/products/{id}", "/api/items/{id}", "/api/users/{id}").hasRole("ADMIN")
-            .pathMatchers(HttpMethod.DELETE, "/api/products/{id}", "/api/items/{id}", "/api/users/{id}").hasRole("ADMIN")
-
-        })
+            .anyExchange().authenticated();
+        }).cors(
+            csrf -> csrf.disable()
+        ).oauth2Login(withDefaults())
+        .oauth2Client(withDefaults())
+        .oauth2ResourceServer(withDefaults())
+        .build();
     }
 
 }
