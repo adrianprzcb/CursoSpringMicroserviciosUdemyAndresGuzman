@@ -26,6 +26,10 @@
 		},
 		{
 			"path": "../../../../../SpringCloud/msvc-users"
+		},
+		{
+			"name": "msvc-oauth",
+			"path": "../../../../../SpringCloud/msvc-oauth"
 		}
 	],
 	"settings": {
