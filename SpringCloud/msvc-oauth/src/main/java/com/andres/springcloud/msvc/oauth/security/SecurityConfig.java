@@ -105,13 +105,14 @@ public class SecurityConfig {
 	@Bean 
 	 RegisteredClientRepository registeredClientRepository() {
 		RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
-				.clientId("oidc-client")
-				.clientSecret("{noop}secret")
+				.clientId("gateway-app")
+				.clientSecret("{noop}12345")
 				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-				.redirectUri("http://127.0.0.1:8080/login/oauth2/code/oidc-client")
-				.postLogoutRedirectUri("http://127.0.0.1:8080/")
+				.redirectUri("http://127.0.0.1:8090/login/oauth2/code/gateway-app")
+                .redirectUri("http://127.0.0.1:8090/authorized")
+				.postLogoutRedirectUri("http://127.0.0.1:8090/logout")
 				.scope(OidcScopes.OPENID)
 				.scope(OidcScopes.PROFILE)
 				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
