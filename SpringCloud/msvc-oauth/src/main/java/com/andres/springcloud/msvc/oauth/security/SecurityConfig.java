@@ -88,13 +88,18 @@ public class SecurityConfig {
 
 	@Bean 
 	 UserDetailsService userDetailsService() {
-		UserDetails userDetails = User.withDefaultPasswordEncoder()
-				.username("user")
-				.password("password")
+		UserDetails userDetails = User.builder()
+				.username("andres")
+				.password("{noop}12345")
 				.roles("USER")
 				.build();
+        UserDetails admin = User.builder()
+				.username("admin")
+				.password("{noop}12345")
+				.roles("USER", "ADMIN")
+				.build();
 
-		return new InMemoryUserDetailsManager(userDetails);
+		return new InMemoryUserDetailsManager(userDetails, admin);
 	}
 
 	@Bean 
