@@ -38,9 +38,8 @@ spring:
             - profile
             client-name: client-app
         provider:
-          string:
-            issuer-uri: http://127.0.0.1:9100
-      
+          spring:
+            issuer-uri: http://127.0.0.1:9100  
   cloud:
     gateway:
       routes:
