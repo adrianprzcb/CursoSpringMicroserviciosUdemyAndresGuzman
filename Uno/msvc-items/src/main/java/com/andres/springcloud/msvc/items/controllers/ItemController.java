@@ -77,8 +77,8 @@ public class ItemController {
         @GetMapping
         public List<Item> list(@RequestParam(name = "name", required = false) String name,
                         @RequestHeader(name = "token-request", required = false) String token) {
-                System.out.println(name);
-                System.out.println(token);
+                logger.info("Request Parameter: {}", name);
+                logger.info("Token: {}", token);
                 return service.findAll();
         }
 
