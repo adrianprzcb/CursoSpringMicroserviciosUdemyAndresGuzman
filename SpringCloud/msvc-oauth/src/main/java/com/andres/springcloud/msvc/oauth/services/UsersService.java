@@ -48,12 +48,11 @@ public class UsersService implements UserDetailsService {
                     .map(role -> new SimpleGrantedAuthority(role.getName()))
                     .collect(Collectors.toList());
 
-            org.springframework.security.core.userdetails.User userdetails = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+            logger.info("Se ha realizado el login con exito con username {}", user);
+
+            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                     user.isEnabled(), true, true, true, roles);
 
-                    logger.info("Se ha realizado el login con exito con {}", user);
-
-                    return userdetails;
                 } catch (WebClientResponseException e) {
                     String error = "Error en el login, no existe el users '" + username + "' en el sistema";
                     logger.error(error);
