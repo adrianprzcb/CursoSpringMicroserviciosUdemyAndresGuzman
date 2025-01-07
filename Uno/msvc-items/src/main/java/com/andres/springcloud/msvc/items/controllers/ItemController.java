@@ -181,6 +181,7 @@ public class ItemController {
         @PostMapping
         @ResponseStatus(HttpStatus.CREATED)
         public Product create(@RequestBody Product product){
+                logger.info("Product creando: {}", product);
                 return service.save(product);
         }
 
@@ -188,12 +189,15 @@ public class ItemController {
         @PutMapping("/{id}")
         @ResponseStatus(HttpStatus.CREATED)
         public Product update(@RequestBody Product product, @PathVariable Long id){
+                logger.info("Actualizando producto: {}", product);
                 return service.update(product, id);
         }
 
         @DeleteMapping("/{id}")
         @ResponseStatus(HttpStatus.NO_CONTENT)
         public void delete(@PathVariable Long id){
+         logger.info("Product eliminado con id: {}", id);
+
          service.delete(id);
         }
 
