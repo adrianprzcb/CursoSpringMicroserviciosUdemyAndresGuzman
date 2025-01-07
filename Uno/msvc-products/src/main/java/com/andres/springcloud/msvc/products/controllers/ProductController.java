@@ -4,6 +4,8 @@ import java.lang.annotation.Repeatable;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 public class ProductController {
 
+            private final Logger logger = LoggerFactory.getLogger(ProductController.class);
+
+
     final private ProductService service;
 
     public ProductController(ProductService service) {
@@ -30,11 +35,13 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<?> list() {
+        logger.info("Ingresando al metodo del controller ProductController::list");
         return ResponseEntity.ok(this.service.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> details(@PathVariable Long id) throws InterruptedException {
+        logger.info("Ingresando al metodo del controller ProductController::details");
 
         if (id.equals(10L)) {
             throw new IllegalStateException("Producto no encontrado!");
@@ -54,12 +61,14 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<Product> create(@RequestBody Product product){
+        logger.info("Ingresando al metodo ProductController::create, creando: {}", product);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(product));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Product product){
+        logger.info("Ingresando al metodo ProductController::update, actualizando: {}", product);
         Optional<Product> productOptional = service.findById(id);
         if(productOptional.isPresent()){
             Product productDb = productOptional.orElseThrow();
@@ -81,6 +90,7 @@ public class ProductController {
         Optional<Product> productOptional = service.findById(id);
         if(productOptional.isPresent()){
             this.service.deleteById(id);
+            logger.info("Ingresando al metodo ProductController::delete, eliminado: ", productOptional.get());
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.noContent().build();
