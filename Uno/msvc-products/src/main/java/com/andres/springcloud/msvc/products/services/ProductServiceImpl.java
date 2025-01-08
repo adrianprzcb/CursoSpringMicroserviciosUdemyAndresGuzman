@@ -8,7 +8,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.andres.libs.msvc.commons.libs_mcvc_commons.entities.Product;
+import com.andres.libs.msvc.commons.entities.Product;
 import com.andres.springcloud.msvc.products.repositories.ProductRepository;
 
 @Service
@@ -47,8 +47,8 @@ public class ProductServiceImpl implements ProductService {
         return this.repository.save(product);
     }
 
-    @Override
     @Transactional
+    @Override
     public void deleteById(Long id) {
         repository.deleteById(id);
     }

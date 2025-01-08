@@ -3,7 +3,8 @@ package com.andres.springcloud.msvc.products.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.andres.libs.msvc.commons.libs_mcvc_commons.entities.Product;
+import com.andres.libs.msvc.commons.entities.Product;
+
 
 public interface ProductService {
 

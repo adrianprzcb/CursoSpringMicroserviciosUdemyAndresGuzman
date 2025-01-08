@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.1</version>
+		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.andres.springcloud.msvc.products</groupId>
@@ -59,28 +59,27 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>com.andres.libs.msvc.commons</groupId>
-			<artifactId>libs-mcvc-commons</artifactId>
+			<artifactId>libs-msvc-commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-	<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		
-<dependency>
-      <groupId>io.micrometer</groupId>
-      <artifactId>micrometer-tracing</artifactId>
-    </dependency>
-
-	<dependency>
-    <groupId>io.micrometer</groupId>
-    <artifactId>micrometer-tracing-bridge-brave</artifactId>
-</dependency>
-		
-
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-tracing</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-tracing-bridge-brave</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.reporter2</groupId>
+			<artifactId>zipkin-reporter-brave</artifactId>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -92,12 +91,12 @@
 				<scope>import</scope>
 			</dependency>
 			<dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-tracing-bom</artifactId>
-            <version>${micrometer-tracing.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
+				<groupId>io.micrometer</groupId>
+				<artifactId>micrometer-tracing-bom</artifactId>
+				<version>${micrometer-tracing.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

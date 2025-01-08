@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.andres.libs.msvc.commons.libs_mcvc_commons.entities.Product;
+import com.andres.libs.msvc.commons.entities.Product;
+
 
 @FeignClient(name = "msvc-products")
 public interface ProductFeignClient {
@@ -21,10 +22,8 @@ public interface ProductFeignClient {
     @GetMapping("/{id}")
     Product details(@PathVariable Long id);
 
-
     @PostMapping
     public Product create(@RequestBody Product product);
-
 
     @PutMapping("/{id}")
     public Product update(@RequestBody Product product, @PathVariable Long id);

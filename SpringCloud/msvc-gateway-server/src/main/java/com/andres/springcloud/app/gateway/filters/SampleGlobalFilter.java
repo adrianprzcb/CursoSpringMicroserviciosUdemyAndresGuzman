@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
-import io.micrometer.core.instrument.LongTaskTimer.Sample;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -18,6 +17,7 @@ import jakarta.servlet.ServletResponse;
 public class SampleGlobalFilter implements Filter, Ordered {
 
     private final Logger logger = LoggerFactory.getLogger(SampleGlobalFilter.class);
+
     @Override
     public int getOrder() {
         return 100;
@@ -26,8 +26,7 @@ public class SampleGlobalFilter implements Filter, Ordered {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        
-        logger.info("Llamada Filtro SampleGlobalFilter::doFilter");
+        logger.info("Llamada filtro SampleGlobalFilter::doFilter");
         chain.doFilter(request, response);
     }
 }

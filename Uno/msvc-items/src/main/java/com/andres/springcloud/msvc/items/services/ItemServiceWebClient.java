@@ -10,24 +10,25 @@ import java.util.Random;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClient.Builder;
+// import org.springframework.web.reactive.function.client.WebClient.Builder;
+// import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import com.andres.libs.msvc.commons.entities.Product;
 import com.andres.springcloud.msvc.items.models.Item;
-import com.andres.libs.msvc.commons.libs_mcvc_commons.entities.Product;
 
 // @Primary
 @Service
 public class ItemServiceWebClient implements ItemService {
 
-    private final WebClient.Builder client;
+    private final WebClient client;
 
-    public ItemServiceWebClient(Builder client) {
+    public ItemServiceWebClient(WebClient client) {
         this.client = client;
     }
 
     @Override
     public List<Item> findAll() {
-        return this.client.build()
+        return this.client
                 .get()
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
@@ -42,38 +43,41 @@ public class ItemServiceWebClient implements ItemService {
         Map<String, Long> params = new HashMap<>();
         params.put("id", id);
         // try {
-            return Optional.of(client.build().get().uri("/{id}", params)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .retrieve()
-                    .bodyToMono(Product.class)
-                    .map(product -> new Item(product, new Random().nextInt(10) + 1))
-                    .block());
+        return Optional.of(client.get().uri("/{id}", params)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(Product.class)
+                .map(product -> new Item(product, new Random().nextInt(10) + 1))
+                .block());
         // } catch (WebClientResponseException e) {
-        //     return Optional.empty();
+        // return Optional.empty();
         // }
     }
 
     @Override
     public Product save(Product product) {
-        return client.build()
-        .post()
-        .contentType(MediaType.APPLICATION_JSON)
-        .bodyValue(product)
-        .retrieve()
-        .bodyToMono(Product.class)
-        .block();
+        return client
+                .post()
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(product)
+                .retrieve()
+                .bodyToMono(Product.class)
+                .block();
     }
 
     @Override
     public Product update(Product product, Long id) {
         Map<String, Long> params = new HashMap<>();
         params.put("id", id);
-        return client.build().put().uri("/{id}", params)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .retrieve()
-                    .bodyToMono(Product.class)
-                    .block();
+        return client
+                .put()
+                .uri("/{id}", params)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(product)
+                .retrieve()
+                .bodyToMono(Product.class)
+                .block();
     }
 
     @Override
@@ -81,10 +85,11 @@ public class ItemServiceWebClient implements ItemService {
         Map<String, Long> params = new HashMap<>();
         params.put("id", id);
 
-        client.build().delete().uri("/{id}" , params)
-        .retrieve()
-        .bodyToMono(Void.class)
-        .block();
+        client.delete()
+                .uri("/{id}", params)
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
     }
 
 }

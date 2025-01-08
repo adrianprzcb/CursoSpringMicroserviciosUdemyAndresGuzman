@@ -2,10 +2,9 @@ package com.andres.springcloud.msvc.items.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.andres.libs.msvc.commons.entities.Product;
 import com.andres.springcloud.msvc.items.models.Item;
-import com.andres.libs.msvc.commons.libs_mcvc_commons.entities.Product;
 import com.andres.springcloud.msvc.items.services.ItemService;
-import com.netflix.discovery.converters.Auto;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
@@ -53,7 +52,7 @@ public class ItemController {
         @Autowired
         private Environment env;
 
-        public ItemController(@Qualifier("itemServiceFeign") ItemService service,
+        public ItemController(@Qualifier("itemServiceWebClient") ItemService service,
                         CircuitBreakerFactory cBreakerFactory) {
                 this.cBreakerFactory = cBreakerFactory;
                 this.service = service;
@@ -77,10 +76,10 @@ public class ItemController {
         @GetMapping
         public List<Item> list(@RequestParam(name = "name", required = false) String name,
                         @RequestHeader(name = "token-request", required = false) String token) {
-                                
                 logger.info("Llamada a metodo del controller ItemController::list()");
-                logger.info("Request Parameter: {}", name);
+                logger.info("Resquet Parameter: {}", name);
                 logger.info("Token: {}", token);
+                System.out.println(token);
                 return service.findAll();
         }
 
@@ -177,28 +176,26 @@ public class ItemController {
                 });
         }
 
-
         @PostMapping
         @ResponseStatus(HttpStatus.CREATED)
-        public Product create(@RequestBody Product product){
+        public Product create(@RequestBody Product product) {
                 logger.info("Product creando: {}", product);
                 return service.save(product);
         }
 
-
-        @PutMapping("/{id}")
         @ResponseStatus(HttpStatus.CREATED)
-        public Product update(@RequestBody Product product, @PathVariable Long id){
-                logger.info("Actualizando producto: {}", product);
+        @PutMapping("/{id}")
+        public Product update(@RequestBody Product product, @PathVariable Long id) {
+                logger.info("Product actualizando: {}", product);
                 return service.update(product, id);
         }
 
         @DeleteMapping("/{id}")
         @ResponseStatus(HttpStatus.NO_CONTENT)
-        public void delete(@PathVariable Long id){
-         logger.info("Product eliminado con id: {}", id);
-
-         service.delete(id);
+        public void delete(@PathVariable Long id) {
+                logger.info("Product eliminado con id: {}", id);
+                service.delete(id);
         }
+
 
 }

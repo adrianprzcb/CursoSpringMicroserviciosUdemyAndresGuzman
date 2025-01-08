@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +20,28 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 
 import com.andres.springcloud.msvc.oauth.models.User;
 
+import io.micrometer.tracing.Tracer;
+
 @Service
 public class UsersService implements UserDetailsService {
+
     private final Logger logger = LoggerFactory.getLogger(UsersService.class);
 
     @Autowired
-    private WebClient.Builder client;
+    private WebClient client;
+
+    @Autowired
+    private Tracer tracer;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info("Ingresando al proceso de login UsersService::loadUserByUsername con {}", username);
 
+        logger.info("Ingresando al proceso de login UsersService::loadUserByUsername con {}", username);
         Map<String, String> params = new HashMap<>();
         params.put("username", username);
 
         try {
-            User user = client.build().get().uri("/username/{username}", params)
+            User user = client.get().uri("/username/{username}", params)
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
                     .bodyToMono(User.class)
@@ -44,14 +51,25 @@ public class UsersService implements UserDetailsService {
                     .stream()
                     .map(role -> new SimpleGrantedAuthority(role.getName()))
                     .collect(Collectors.toList());
-                    logger.info("Se ha realizado el login con exito con username {}", user);
-                    return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                    user.isEnabled(), true, true, true, roles);
-        } catch (WebClientResponseException e) {                    String error = "Error en el login, no existe el users '" + username + "' en el sistema";
-        logger.error(error);
-throw new UsernameNotFoundException(
-      error);
-}
+
+            logger.info("Se ha realizado el login con exito by username: {}", user);
+            tracer.currentSpan().tag("success.login", "Se ha realizado el login con exito by username: " + username);
+
+            return new org.springframework.security.core.userdetails.User(
+                    user.getUsername(),
+                    user.getPassword(),
+                    user.isEnabled(),
+                    true,
+                    true,
+                    true,
+                    roles);
+                    
+        } catch (WebClientResponseException e) {
+            String error = "Error en el login, no existe el users '" + username + "' en el sistema";
+            logger.error(error);
+            tracer.currentSpan().tag("error.login.message", error + " : " + e.getMessage());
+            throw new UsernameNotFoundException(error);
+        }
 
     }
 
